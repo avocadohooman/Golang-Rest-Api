@@ -18,10 +18,9 @@ func (s MyStruct)  valueMethod()   { } // method on value
 
 */
 func (s *Server) setupEndpoints(r *chi.Mux) {
-	pattern := "api/v1"
-	r.Route(pattern, func(r chi.Router) {
+	r.Route("/api/v1", func(r chi.Router) {
 		r.Route("/users", func(r chi.Router) {
-			
+
 		})
 	})
 }
