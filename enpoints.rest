@@ -1,0 +1,9 @@
+### POST an access request
+POST http://localhost:5000/api/v1/users/register
+content-type: application/json
+
+{
+	"email": "test",
+	"username": "test username",
+	"password": "1234"
+}

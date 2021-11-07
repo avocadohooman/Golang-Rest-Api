@@ -3,15 +3,16 @@ package handlers
 import (
 	"time"
 
+	"github.com/avocadohooman/Golang-Rest-Api-Todo/domain"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 )
 
 type Server struct {
-
+	domain *domain.Domain
 }
 
-func setUpMiddleWare(r *chi.Mux) {
+func setupMiddleWare(r *chi.Mux) {
 	r.Use(middleware.RequestID)
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Compress(6, "application/json"))
@@ -21,16 +22,16 @@ func setUpMiddleWare(r *chi.Mux) {
 	r.Use(middleware.Timeout(60 * time.Second))
 }
 
-func NewServer() *Server {
-	return &Server{}
+func NewServer(domain *domain.Domain) *Server {
+	return &Server{domain: domain}
 }
 
-func SetupRouter () *chi.Mux {
-	server := NewServer()
+func SetupRouter(domain *domain.Domain) *chi.Mux {
+	server := NewServer(domain)
 
 	router := chi.NewRouter()
 
-	setUpMiddleWare(router)
+	setupMiddleWare(router)
 
 	server.setupEndpoints(router)
 
