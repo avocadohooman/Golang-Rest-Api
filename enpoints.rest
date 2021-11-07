@@ -1,4 +1,4 @@
-### POST an access request
+### POST for registering a user
 POST http://localhost:5000/api/v1/users/register
 content-type: application/json
 

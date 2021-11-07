@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"encoding/json"
+	"net/http"
 	"time"
 
 	"github.com/avocadohooman/Golang-Rest-Api-Todo/domain"
@@ -36,4 +38,24 @@ func SetupRouter(domain *domain.Domain) *chi.Mux {
 	server.setupEndpoints(router)
 
 	return router
+}
+
+func jsonResponse(w http.ResponseWriter, data interface{}, statusCode int) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(statusCode)
+
+	if data == nil {
+		data = map[string]string{}
+	}
+	err := json.NewEncoder(w).Encode(data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	return
+}
+
+func badRequestResponse(w http.ResponseWriter, err error) {
+	response := map[string]string{"error": err.Error()}
+	jsonResponse(w, response, http.StatusBadRequest)
 }

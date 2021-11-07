@@ -13,19 +13,10 @@ func (s *Server) registerUser() http.HandlerFunc {
 		payload := domain.RegisterPayload{}
 		err := json.NewDecoder(r.Body).Decode(&payload)
 		if err != nil {
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusBadRequest)
-
-			response := map[string]string{"error": err.Error()}
-			err := json.NewEncoder(w).Encode(response)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
+			badRequestResponse(w, err)
 			return
 		}
-		fmt.Println(payload)
-
+		fmt.Println("payload", payload)
 		// user, err := s.domain.Register()
 	}
 }
