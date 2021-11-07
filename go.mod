@@ -6,6 +6,7 @@ require github.com/go-pg/pg/v9 v9.2.1
 
 require (
 	github.com/codemodus/kace v0.5.1 // indirect
+	github.com/go-chi/chi v1.5.4
 	github.com/go-pg/zerochecker v0.2.0 // indirect
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
